@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriJarvis - AI-Powered Farming Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins&family=Inter&family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Sora:wght@600&family=Inter:wght@400;500&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+
+</head>
+<body>
+
+    <!-- Preloader -->
+<div class="preloader" id="preloader">
+    <div class="preloader-background">
+        <!-- Animated particles will be added here via JavaScript -->
+    </div>
+    
+    <div class="preloader-content">
+        <!-- Logo Container -->
+        <div class="logo-container">
+            <div class="logo-image">
+                <img src="https://github.com/Aashu31/AgriJarvis.github.io/blob/main/AgriJarvis.png" alt="AgriJarvis Logo">
+            </div>
+            <div class="logo-glow"></div>
+        </div>
+        
+        <!-- Loading Text -->
+        <div class="loading-text">
+            <p>Initializing Smart Farming...</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pre-Login Homepage -->
+<header class="header">
+    <div class="logo">
+        <img src="images/agrijarvis.png" alt="AgriJarvis Logo" class="header-logo">
+    </div>
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button class="auth-btn" id="login-btn">Login / Signup</button></li>
+        </ul>
+    </nav>
+</header>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay">
+            <h1>Revolutionize Your Farming with AI-Powered Insights</h1>
+            <p>AgriJarvis combines cutting-edge technology with agricultural expertise to maximize your yields and minimize risks.</p>
+            <div class="hero-buttons">
+                <button class="cta-btn" id="get-started-btn">Get Started</button>
+                <button class="demo-btn" id="watch-demo-btn">Watch Demo</button>
+            </div>
+        </div>
+        <div class="hero-background">
+            <!-- Background video/image will be inserted here -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2>Powerful Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>AI Crop Advisor</h3>
+                <p>Personalized crop suggestions based on your soil and climate.</p>
+                <button class="learn-more-btn" data-feature="crop-advisor">Learn More</button>
+            </div>
+            <div class="feature-card">
+                <h3>Smart Irrigation</h3>
+                <p>Auto-scheduling based on crop needs and weather forecasts.</p>
+                <button class="learn-more-btn" data-feature="irrigation">Learn More</button>
+            </div>
+            <div class="feature-card">
+                <h3>Pest Detection</h3>
+                <p>Image recognition for diseases and pest identification.</p>
+                <button class="learn-more-btn" data-feature="pest-detection">Learn More</button>
+            </div>
+            <div class="feature-card">
+                <h3>Yield Prediction</h3>
+                <p>Forecast your harvest using environmental data and AI.</p>
+                <button class="learn-more-btn" data-feature="yield-prediction">Learn More</button>
+            </div>
+            <div class="feature-card">
+                <h3>Market Insights</h3>
+                <p>Real-time pricing data from local and national markets.</p>
+                <button class="learn-more-btn" data-feature="market-insights">Learn More</button>
+            </div>
+            <div class="feature-card">
+                <h3>Weather Alerts</h3>
+                <p>Hyper-local updates to protect your crops.</p>
+                <button class="learn-more-btn" data-feature="weather-alerts">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+ <!-- Solutions Section -->
+<section class="solutions">
+    <h2>Tailored Solutions</h2>
+    <div class="solutions-container">
+        <!-- Farmers Solutions -->
+        <div class="solutions-group">
+            <h3 class="group-title">For Farmers</h3>
+            <div class="solutions-grid">
+                <div class="solution-card glass-card">
+                    <div class="solution-icon">👨‍🌾</div>
+                    <h4>Small Farmers</h4>
+                    <ul>
+                        <li>Affordable monthly plans</li>
+                        <li>Basic crop guidance</li>
+                        <li>Local market prices</li>
+                        <li>Weather alerts</li>
+                    </ul>
+                    <button class="learn-more-btn">Explore</button>
+                </div>
+                
+                <div class="solution-card glass-card">
+                    <div class="solution-icon">👩‍🌾</div>
+                    <h4>Medium-scale Farmers</h4>
+                    <ul>
+                        <li>Advanced analytics</li>
+                        <li>Smart irrigation plans</li>
+                        <li>Pest detection</li>
+                        <li>Yield optimization</li>
+                    </ul>
+                    <button class="learn-more-btn">Explore</button>
+                </div>
+                
+                <div class="solution-card glass-card">
+                    <div class="solution-icon">🏭</div>
+                    <h4>Commercial Farms</h4>
+                    <ul>
+                        <li>Enterprise dashboard</li>
+                        <li>Multi-field management</li>
+                        <li>AI-powered predictions</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <button class="learn-more-btn">Explore</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Industry Solutions -->
+        <div class="solutions-group">
+            <h3 class="group-title">For Agribusiness</h3>
+            <div class="solutions-grid">
+                <div class="solution-card glass-card">
+                    <div class="solution-icon">🏪</div>
+                    <h4>Agri Retailers</h4>
+                    <ul>
+                        <li>Demand forecasting</li>
+                        <li>Inventory optimization</li>
+                        <li>Farmer engagement tools</li>
+                        <li>Product recommendations</li>
+                    </ul>
+                    <button class="learn-more-btn">Explore</button>
+                </div>
+                
+                <div class="solution-card glass-card">
+                    <div class="solution-icon">🏭</div>
+                    <h4>Food Processors</h4>
+                    <ul>
+                        <li>Crop quality monitoring</li>
+                        <li>Supply chain visibility</li>
+                        <li>Contract farming support</li>
+                        <li>Compliance tracking</li>
+                    </ul>
+                    <button class="learn-more-btn">Explore</button>
+                </div>
+                
+                <div class="solution-card glass-card">
+                    <div class="solution-icon">🏦</div>
+                    <h4>Financial Institutions</h4>
+                    <ul>
+                        <li>Farmer risk assessment</li>
+                        <li>Crop health monitoring</li>
+                        <li>Loan performance tracking</li>
+                        <li>Insurance analytics</li>
+                    </ul>
+                    <button class="learn-more-btn">Explore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+    <h2>What Farmers Say</h2>
+    <div class="testimonials-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card glass-card">
+            <p>"AgriJarvis transformed how I farm. I get real-time help, better yields, and smart decisions. It's like having a farming expert in my pocket."</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p class="author">— Ravi Kumar, Bihar (Wheat Farmer)</p>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card glass-card">
+            <p>"The pest detection feature saved my mango crop! I was able to identify the problem early and take action before it spread to other trees."</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p class="author">— Priya Patel, Maharashtra (Mango Orchard Owner)</p>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card glass-card">
+            <p>"As a woman farmer, I found AgriJarvis very easy to use. The Hindi voice assistant helps me get information without needing to read."</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p class="author">— Sunita Devi, Rajasthan (Vegetable Farmer)</p>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="testimonial-card glass-card">
+            <p>"The market price predictions helped me get 30% better rates for my cotton. I now know exactly when to sell my produce."</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p class="author">— Vijay Reddy, Telangana (Cotton Farmer)</p>
+        </div>
+
+        <!-- Testimonial 5 -->
+        <div class="testimonial-card glass-card">
+            <p>"The smart irrigation advice reduced my water usage by 40% while improving my rice yield. Amazing technology for Indian conditions!"</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p class="author">— Rajesh Das, West Bengal (Rice Farmer)</p>
+        </div>
+
+        <!-- Testimonial 6 -->
+        <div class="testimonial-card glass-card">
+            <p>"Being a small farmer, I couldn't afford expert advice. AgriJarvis gives me the same knowledge at fraction of the cost. Game changer!"</p>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p class="author">— Arun Kumar, Punjab (Dairy & Crop Farmer)</p>
+        </div>
+    </div>
+</section>
+
+   <!-- Pricing -->
+<section class="pricing" id="pricing">
+    <h2>Flexible Pricing for Every Farmer</h2>
+    
+    <div class="pricing-tabs">
+        <button class="pricing-tab active" data-tab="individual">Individual Plans</button>
+        <button class="pricing-tab" data-tab="business">Business Plans</button>
+        <button class="pricing-tab" data-tab="annual">Annual Savings</button>
+    </div>
+
+    <!-- Individual Plans -->
+    <div class="pricing-table active" id="individual-plans">
+        <div class="pricing-tier glass-card">
+            <div class="popular-badge">Most Popular</div>
+            <h3>Standard</h3>
+            <p class="price">₹199<span>/month</span></p>
+            <ul>
+                <li>✓ AI Crop Recommendations</li>
+                <li>✓ Smart Irrigation Plans</li>
+                <li>✓ Full Market Data</li>
+                <li>✓ Basic Pest Detection</li>
+                <li>✗ Yield Prediction</li>
+                <li>✗ Priority Support</li>
+            </ul>
+            <button class="select-btn">Choose Plan</button>
+        </div>
+        
+        <div class="pricing-tier glass-card featured">
+            <h3>Premium</h3>
+            <p class="price">₹399<span>/month</span></p>
+            <ul>
+                <li>✓ All Standard Features</li>
+                <li>✓ Advanced Pest Detection</li>
+                <li>✓ Yield Prediction</li>
+                <li>✓ Weather Alerts</li>
+                <li>✓ Priority Support</li>
+                <li>✓ Livestock Module</li>
+            </ul>
+            <button class="select-btn featured-btn">Best Value</button>
+        </div>
+        
+        <div class="pricing-tier glass-card">
+            <h3>Free</h3>
+            <p class="price">₹0<span>/month</span></p>
+            <ul>
+                <li>✓ Basic Crop Info</li>
+                <li>✓ Weather Updates</li>
+                <li>✓ Limited Market Data</li>
+                <li>✗ AI Recommendations</li>
+                <li>✗ Irrigation Plans</li>
+                <li>✗ Pest Detection</li>
+            </ul>
+            <button class="select-btn">Start Free</button>
+        </div>
+    </div>
+
+    <!-- Business Plans -->
+    <div class="pricing-table" id="business-plans">
+        <div class="pricing-tier glass-card">
+            <h3>Cooperative</h3>
+            <p class="price">₹599<span>/month</span></p>
+            <p class="user-count">Up to 5 users</p>
+            <ul>
+                <li>✓ All Premium Features</li>
+                <li>✓ Shared Dashboard</li>
+                <li>✓ Cooperative Analytics</li>
+                <li>✓ Bulk Input Management</li>
+                <li>✓ Group Training Sessions</li>
+            </ul>
+            <button class="select-btn">For Farmer Groups</button>
+        </div>
+        
+        <div class="pricing-tier glass-card featured">
+            <div class="popular-badge">Best for FPOs</div>
+            <h3>FPO Pro</h3>
+            <p class="price">₹1,499<span>/month</span></p>
+            <p class="user-count">Up to 20 users</p>
+            <ul>
+                <li>✓ All Cooperative Features</li>
+                <li>✓ FPO Management Tools</li>
+                <li>✓ Collective Bargaining Data</li>
+                <li>✓ Government Scheme Assistance</li>
+                <li>✓ Dedicated Account Manager</li>
+            </ul>
+            <button class="select-btn featured-btn">Get Quote</button>
+        </div>
+        
+        <div class="pricing-tier glass-card">
+            <h3>Enterprise</h3>
+            <p class="price">Custom</p>
+            <p class="user-count">Unlimited users</p>
+            <ul>
+                <li>✓ All FPO Pro Features</li>
+                <li>✓ API Integration</li>
+                <li>✓ White Label Options</li>
+                <li>✓ On-premise Deployment</li>
+                <li>✓ 24/7 Support</li>
+            </ul>
+            <button class="select-btn">Contact Sales</button>
+        </div>
+    </div>
+
+    <!-- Annual Plans -->
+    <div class="pricing-table" id="annual-plans">
+        <div class="pricing-tier glass-card">
+            <h3>Standard Annual</h3>
+            <p class="price">₹1,908<span>/year</span></p>
+            <p class="savings">Save 20% (₹199/month)</p>
+            <ul>
+                <li>✓ All Standard Features</li>
+                <li>✓ 2 Free Months</li>
+                <li>✓ Annual Analytics Report</li>
+            </ul>
+            <button class="select-btn">Pay Annually</button>
+        </div>
+        
+        <div class="pricing-tier glass-card featured">
+            <div class="popular-badge">Smart Choice</div>
+            <h3>Premium Annual</h3>
+            <p class="price">₹3,588<span>/year</span></p>
+            <p class="savings">Save 25% (₹299/month)</p>
+            <ul>
+                <li>✓ All Premium Features</li>
+                <li>✓ 3 Free Months</li>
+                <li>✓ Priority Feature Requests</li>
+                <li>✓ Exclusive Webinars</li>
+            </ul>
+            <button class="select-btn featured-btn">Best Deal</button>
+        </div>
+        
+        <div class="pricing-tier glass-card">
+            <h3>Cooperative Annual</h3>
+            <p class="price">₹6,588<span>/year</span></p>
+            <p class="savings">Save 30% (₹499/month)</p>
+            <ul>
+                <li>✓ All Cooperative Features</li>
+                <li>✓ Free Onboarding</li>
+                <li>✓ Quarterly Reviews</li>
+            </ul>
+            <button class="select-btn">Group Discount</button>
+        </div>
+    </div>
+
+    <div class="pricing-footer">
+        <p>Not sure which plan to choose? <a href="#contact">Contact our team</a> for personalized advice.</p>
+        <div class="payment-options">
+            <span>Accepted Payment Methods:</span>
+            <div class="payment-icons">
+                <span>UPI</span>
+                <span>Credit/Debit</span>
+                <span>Net Banking</span>
+                <span>Paytm</span>
+                <span>PhonePe</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Founders -->
+    <section class="founders">
+        <h2>Meet the Founders</h2>
+        <div class="founders-grid">
+            <div class="founder-card">
+                <h3>Aashu Singh</h3>
+                <p class="role">Founder</p>
+                <p class="bio"> A driven B.Tech CSE student with a passion for blending technology and social impact. Founder of AgriJarvis — an AI-powered platform empowering Indian farmers. Actively researching rural development, governance, and AI integration in agriculture. On a mission to build innovative, inclusive, and intelligent tech solutions for a better future.</p>
+                <a href="#" class="social-link">LinkedIn</a>
+            </div>
+            <div class="founder-card">
+                <h3>Dhruv Narayan Mishra</h3>
+                <p class="role">CTO</p>
+                <p class="bio">AI specialist focused on farming solutions.</p>
+                <a href="#" class="social-link">GitHub</a>
+            </div>
+            <div class="founder-card">
+                <h3>Ritesh Kumar Gupta</h3>
+                <p class="role">COO</p>
+                <p class="bio">Business development for rural markets.</p>
+                <a href="#" class="social-link">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <form class="contact-form">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Message" required></textarea>
+                <button type="submit" class="send-btn">Send Message</button>
+            </form>
+            <div class="contact-info">
+                <p><span>📧</span> support@agrijarvis.com</p>
+                <p><span>📞</span> +918252461926</p>
+                <p><span>📍</span> Jalandhar , Punjab, India</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">AgriJarvis</div>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Careers</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 AgriJarvis. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Authentication Modals -->
+    <div class="auth-modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Login to AgriJarvis</h2>
+            <div class="social-login">
+                <button class="google-login">Login with Google</button>
+                <button class="facebook-login">Login with Facebook</button>
+                <button class="phone-login">Login with Phone</button>
+            </div>
+            <div class="divider">OR</div>
+            <form class="email-login">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <p class="switch-auth">Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+        </div>
+    </div>
+
+    <div class="auth-modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create an Account</h2>
+            <div class="social-signup">
+                <button class="google-signup">Sign up with Google</button>
+                <button class="facebook-signup">Sign up with Facebook</button>
+                <button class="phone-signup">Sign up with Phone</button>
+            </div>
+            <div class="divider">OR</div>
+            <form class="email-signup">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+            <p class="switch-auth">Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+    </div>
+    <div class="main-container">
+        <header>
+          <h1>AgriJarvis <span class="subtitle">Agricultural Intelligence</span></h1>
+          <button id="chatbot-toggle" class="chatbot-button">
+            <i class="fas fa-seedling"></i> Ask AgriJarvis
+          </button>
+        </header>
+        
+        <main>
+          <section class="hero">
+            <div class="hero-content">
+              <h2>Your AI <span class="highlight">Agricultural</span> Assistant</h2>
+              <p>Get expert advice on crops, diseases, farming techniques, and more!</p>
+            </div>
+          </section>
+        </main>
+</body>
+</body>
+</html>
