@@ -139,156 +139,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const districtSelect = document.getElementById('district-select');
     const citySelect = document.getElementById('city-select');
     
-    // Sample data - in real app you would fetch this from an API
+    // Location data for weather forecasting - Updated with Jharkhand state data
     const locationData = {
         'jharkhand': {
-            districts: ['Ranchi', 'Dhanbad', 'Jamshedpur', 'Bokaro'],
+            districts: ['Ranchi', 'Dhanbad', 'Jamshedpur', 'Bokaro', 'Hazaribagh', 'Deoghar', 'Giridih', 'Ramgarh', 'Palamu', 'Godda'],
             cities: {
-                'Ranchi': ['Ranchi City', 'Kanke', 'Ormanjhi'],
-                'Dhanbad': ['Dhanbad City', 'Jharia', 'Katras'],
-                // Add other districts
+                'Ranchi': ['Ranchi City', 'Kanke', 'Namkum', 'Hatia', 'Tatisilwai'],
+                'Dhanbad': ['Dhanbad City', 'Jharia', 'Katras', 'Sindri', 'Chas'],
+                'Jamshedpur': ['Jamshedpur', 'Adityapur', 'Gamharia', 'Mango', 'Jugsalai'],
+                'Bokaro': ['Bokaro Steel City', 'Chas', 'Bermo', 'Chandankiyari', 'Gomia'],
+                'Hazaribagh': ['Hazaribagh', 'Barhi', 'Barkagaon', 'Ichak', 'Katkamsandi'],
+                'Deoghar': ['Deoghar', 'Madhupur', 'Sarwan', 'Mohanpur', 'Devipur'],
+                'Giridih': ['Giridih', 'Bengabad', 'Dumri', 'Gawan', 'Jamua'],
+                'Ramgarh': ['Ramgarh', 'Patratu', 'Mandu', 'Gola', 'Dulmi'],
+                'Palamu': ['Medininagar', 'Daltonganj', 'Hussainabad', 'Lesliganj', 'Panki'],
+                'Godda': ['Godda', 'Mahagama', 'Pathargama', 'Poreyahat', 'Sundarpahari']
             }
         },
-        // Add other states
-    };
-    
-    stateSelect.addEventListener('change', function() {
-        if (this.value) {
-            districtSelect.disabled = false;
-            districtSelect.innerHTML = '<option value="">Select District</option>';
-            
-            locationData[this.value].districts.forEach(district => {
-                const option = document.createElement('option');
-                option.value = district.toLowerCase().replace(' ', '-');
-                option.textContent = district;
-                districtSelect.appendChild(option);
-            });
-            
-            citySelect.disabled = true;
-            citySelect.innerHTML = '<option value="">Select City</option>';
-        } else {
-            districtSelect.disabled = true;
-            citySelect.disabled = true;
-        }
-    });
-    
-    districtSelect.addEventListener('change', function() {
-        if (this.value && stateSelect.value) {
-            citySelect.disabled = false;
-            citySelect.innerHTML = '<option value="">Select City</option>';
-            
-            const districtName = this.options[this.selectedIndex].text;
-            locationData[stateSelect.value].cities[districtName].forEach(city => {
-                const option = document.createElement('option');
-                option.value = city.toLowerCase().replace(' ', '-');
-                option.textContent = city;
-                citySelect.appendChild(option);
-            });
-        } else {
-            citySelect.disabled = true;
-        }
-    });
-    
-    // Current location button
-    document.getElementById('current-location').addEventListener('click', function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    // In a real app, you would reverse geocode to get location
-                    alert(`Location found: ${position.coords.latitude}, ${position.coords.longitude}`);
-                    // Enable weather button
-                    document.getElementById('show-weather').disabled = false;
-                },
-                error => {
-                    alert('Unable to retrieve your location: ' + error.message);
-                }
-            );
-        } else {
-            alert('Geolocation is not supported by your browser');
-        }
-    });
-    
-    // Show weather button
-    document.getElementById('show-weather').addEventListener('click', function() {
-        // In a real app, you would fetch weather data from an API
-        const weatherMetrics = {
-            'wind-speed': '12 km/h',
-            'temperature': '28 °C',
-            'rain-probability': '30%',
-            'humidity': '65%',
-            'moisture': '42%'
-        };
-        
-        // Update current weather
-        for (const [metric, value] of Object.entries(weatherMetrics)) {
-            document.getElementById(metric).textContent = value;
-        }
-        
-        // Generate forecast
-        const forecastContainer = document.getElementById('forecast');
-        forecastContainer.innerHTML = '';
-        
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        const weatherIcons = ['☀️', '⛅', '🌧️', '⛈️', '🌦️', '🌤️', '🌫️'];
-        
-        for (let i = 0; i < 7; i++) {
-            const date = new Date();
-            date.setDate(date.getDate() + i);
-            const dayName = days[date.getDay()];
-            
-            const forecastDay = document.createElement('div');
-            forecastDay.className = 'forecast-day';
-            
-            const maxTemp = Math.floor(Math.random() * 10) + 25;
-            const minTemp = maxTemp - Math.floor(Math.random() * 5) - 2;
-            const weatherIcon = weatherIcons[Math.floor(Math.random() * weatherIcons.length)];
-            
-            forecastDay.innerHTML = `
-                <div class="day">${dayName}</div>
-                <div class="weather-icon">${weatherIcon}</div>
-                <div class="temp">
-                    <span class="max-temp">${maxTemp}°</span>
-                    <span class="min-temp">${minTemp}°</span>
-                </div>
-            `;
-            
-            forecastContainer.appendChild(forecastDay);
-        }
-    });
-});
-document.addEventListener('DOMContentLoaded', function() {
-    // Tab functionality for crop assistance - FIXED
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const cropCategories = document.querySelectorAll('.crop-category');
-    
-    // Make sure the first tab is active by default
-    if (tabButtons.length > 0 && cropCategories.length > 0) {
-        tabButtons[0].classList.add('active');
-        cropCategories[0].classList.add('active');
-    }
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all buttons and categories
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            cropCategories.forEach(cat => cat.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Show corresponding category
-            const categoryId = this.getAttribute('data-category');
-            const activeCategory = document.getElementById(categoryId);
-            if (activeCategory) {
-                activeCategory.classList.add('active');
-            } else {
-                console.error(`Category with ID ${categoryId} not found`);
-            }
-        });
-    });
-
-    // Location data for top 10 Indian farming states
-    const locationData = {
         'andhra-pradesh': {
             districts: ['Anantapur', 'Chittoor', 'East Godavari', 'Guntur', 'Krishna', 'Kurnool', 'Nellore', 'Prakasam', 'Srikakulam', 'Visakhapatnam', 'Vizianagaram', 'West Godavari'],
             cities: {
@@ -378,25 +245,48 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     };
-
+    
     // Weather API configuration
     const WEATHER_API_KEY = 'e47f4b8989827d2bb070dc043e3928e4';
     const GEOLOCATION_API_KEY = '0991712c-5db2-4e84-bfb8-640e4a3dcd39';
     
     // DOM elements
-    const stateSelect = document.getElementById('state-select');
-    const districtSelect = document.getElementById('district-select');
-    const citySelect = document.getElementById('city-select');
+    const weatherSection = document.getElementById('weather-section');
     const currentLocationBtn = document.getElementById('current-location');
     const showWeatherBtn = document.getElementById('show-weather');
     
-    // Initialize weather section elements display
-    const weatherSection = document.getElementById('weather-section');
+    // Initialize weather section
     if (weatherSection) {
         weatherSection.style.display = 'none';
     }
     
-    // Helper function to get weather icon
+    // Weather API error handling function
+    function handleWeatherError(error) {
+        console.error('Weather API error:', error);
+        let errorMessage = 'Failed to load weather data';
+        
+        if (error.message && error.message.includes('404')) {
+            errorMessage = 'Location not found. Please try another city.';
+        } else if (error.message && error.message.includes('401')) {
+            errorMessage = 'Weather service unavailable. Please try again later.';
+        } else if (error.message && error.message.includes('429')) {
+            errorMessage = 'Too many requests. Please wait before trying again.';
+        } else {
+            errorMessage = error.message || errorMessage;
+        }
+        
+        alert(errorMessage);
+        
+        // Enable the weather button again
+        if (showWeatherBtn) {
+            showWeatherBtn.disabled = false;
+            showWeatherBtn.innerHTML = '<span class="icon">🌤️</span> Show Weather';
+        }
+        
+        return errorMessage;
+    }
+    
+    // Helper function to get weather icon based on condition code
     function getWeatherIcon(weatherId) {
         if (weatherId >= 200 && weatherId < 300) {
             return '⛈️'; // Thunderstorm
@@ -416,39 +306,29 @@ document.addEventListener('DOMContentLoaded', function() {
             return '🌈'; // Default
         }
     }
-
-    // Weather API error handling function
-    function handleWeatherError(error) {
-        console.error('Weather API error:', error);
-        let errorMessage = 'Failed to load weather data';
-        
-        if (error.message && error.message.includes('404')) {
-            errorMessage = 'Location not found. Please try another city.';
-        } else if (error.message && error.message.includes('401')) {
-            errorMessage = 'Weather service unavailable. Please try again later.';
-        } else if (error.message && error.message.includes('429')) {
-            errorMessage = 'Too many requests. Please wait before trying again.';
-        } else {
-            errorMessage = error.message || errorMessage;
-        }
-        
-        alert(errorMessage);
-        return errorMessage;
-    }
-
+    
     // Function to update current weather display
     function updateCurrentWeather(data) {
+        if (!data || !data.main) {
+            console.error('Invalid weather data received:', data);
+            return;
+        }
+        
         if (weatherSection) {
             weatherSection.style.display = 'block';
         }
         
+        // Update wind speed (convert from m/s to km/h)
         document.getElementById('wind-speed').textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/h`;
+        
+        // Update temperature
         document.getElementById('temperature').textContent = `${data.main.temp.toFixed(1)} °C`;
         
-        // Handle rain probability (OpenWeatherMap provides rain volume if it exists)
+        // Handle rain probability
         const rainProb = data.rain ? (data.rain['1h'] || 0) * 10 : 0;
         document.getElementById('rain-probability').textContent = `${Math.min(100, rainProb)}%`;
         
+        // Update humidity
         document.getElementById('humidity').textContent = `${data.main.humidity}%`;
         
         // Estimate soil moisture based on recent rain and humidity
@@ -460,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update weather icon in current weather
         const weatherIcon = document.getElementById('current-weather-icon');
-        if (weatherIcon) {
+        if (weatherIcon && data.weather && data.weather[0]) {
             weatherIcon.textContent = getWeatherIcon(data.weather[0].id);
         }
         
@@ -470,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
             locationDisplay.textContent = `${data.name}, ${data.sys.country}`;
         }
     }
-
+    
     // Function to process and display forecast data
     function displayForecast(forecastData) {
         const forecastContainer = document.getElementById('forecast');
@@ -479,7 +359,14 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Clear previous forecast data
         forecastContainer.innerHTML = '';
+        
+        if (!forecastData || !forecastData.list || !forecastData.list.length) {
+            console.error('Invalid forecast data received:', forecastData);
+            forecastContainer.innerHTML = '<div class="forecast-error">No forecast data available</div>';
+            return;
+        }
         
         // Group by day
         const dailyForecast = {};
@@ -490,15 +377,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!dailyForecast[day]) {
                 dailyForecast[day] = {
                     temps: [],
-                    weather: item.weather[0].main,
-                    icon: getWeatherIcon(item.weather[0].id)
+                    icons: [],
+                    weatherIds: []
                 };
             }
+            
             dailyForecast[day].temps.push(item.main.temp);
+            dailyForecast[day].icons.push(getWeatherIcon(item.weather[0].id));
+            dailyForecast[day].weatherIds.push(item.weather[0].id);
         });
         
         // Display forecast for next 7 days
-        const days = Object.keys(dailyForecast);
         const today = new Date().getDay();
         const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
@@ -509,25 +398,35 @@ document.addEventListener('DOMContentLoaded', function() {
             daysToShow.push(weekDays[dayIndex]);
         }
         
-        // Filter and sort our forecast days
-        const forecastDays = days.filter(day => daysToShow.includes(day))
-                                .sort((a, b) => {
-                                    return daysToShow.indexOf(a) - daysToShow.indexOf(b);
-                                });
-        
         // Create forecast elements
-        forecastDays.forEach(dayName => {
+        daysToShow.forEach(dayName => {
             const dayForecast = dailyForecast[dayName];
             
-            if (dayForecast) {
+            if (dayForecast && dayForecast.temps.length > 0) {
                 const maxTemp = Math.max(...dayForecast.temps);
                 const minTemp = Math.min(...dayForecast.temps);
+                
+                // Get most common weather condition
+                const weatherIdCounts = {};
+                dayForecast.weatherIds.forEach(id => {
+                    weatherIdCounts[id] = (weatherIdCounts[id] || 0) + 1;
+                });
+                
+                let mostCommonWeatherId = dayForecast.weatherIds[0];
+                let maxCount = 0;
+                
+                for (const [id, count] of Object.entries(weatherIdCounts)) {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        mostCommonWeatherId = Number(id);
+                    }
+                }
                 
                 const forecastDay = document.createElement('div');
                 forecastDay.className = 'forecast-day';
                 forecastDay.innerHTML = `
                     <div class="day">${dayName}</div>
-                    <div class="weather-icon">${dayForecast.icon}</div>
+                    <div class="weather-icon">${getWeatherIcon(mostCommonWeatherId)}</div>
                     <div class="temp">
                         <span class="max-temp">${maxTemp.toFixed(0)}°</span>
                         <span class="min-temp">${minTemp.toFixed(0)}°</span>
@@ -537,18 +436,51 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    // Function to fetch weather data - FIXED
-    async function fetchWeatherData(city, state) {
+    
+    // Function to fetch weather data
+    async function fetchWeatherData(city, state, country = 'IN') {
         try {
-            // Build query string - OpenWeatherMap expects comma-separated values
-            const locationQuery = `${city},${state},IN`;
+            // Show loading state
+            if (weatherSection) {
+                weatherSection.style.display = 'block';
+            }
+            
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'weather-loading';
+            loadingIndicator.innerHTML = '<div class="spinner"></div><p>Loading accurate weather data...</p>';
+            loadingIndicator.style.display = 'flex';
+            loadingIndicator.style.justifyContent = 'center';
+            loadingIndicator.style.alignItems = 'center';
+            loadingIndicator.style.flexDirection = 'column';
+            loadingIndicator.style.padding = '20px';
+            
+            const currentWeatherContainer = document.querySelector('.current-weather');
+            const forecastContainer = document.getElementById('forecast');
+            
+            if (currentWeatherContainer) {
+                currentWeatherContainer.style.opacity = '0.5';
+                currentWeatherContainer.parentNode.insertBefore(loadingIndicator, currentWeatherContainer);
+            }
+            
+            if (forecastContainer) {
+                forecastContainer.innerHTML = '';
+            }
+            
+            // Build query string - properly format location query
+            const locationQuery = `${city},${state},${country}`;
             console.log(`Fetching weather for: ${locationQuery}`);
             
             // Fetch current weather
             const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(locationQuery)}&units=metric&appid=${WEATHER_API_KEY}`);
             
             if (!weatherResponse.ok) {
+                if (loadingIndicator.parentNode) {
+                    loadingIndicator.parentNode.removeChild(loadingIndicator);
+                }
+                if (currentWeatherContainer) {
+                    currentWeatherContainer.style.opacity = '1';
+                }
+                
                 const errorData = await weatherResponse.json();
                 throw new Error(`${weatherResponse.status}: ${errorData.message || 'Failed to fetch weather data'}`);
             }
@@ -556,19 +488,37 @@ document.addEventListener('DOMContentLoaded', function() {
             const weatherData = await weatherResponse.json();
             console.log('Weather data received:', weatherData);
             
-            // Update current weather display
-            updateCurrentWeather(weatherData);
+            // Fetch forecast with coordinates for better accuracy
+            const lat = weatherData.coord.lat;
+            const lon = weatherData.coord.lon;
             
-            // Fetch forecast
-            const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(locationQuery)}&units=metric&appid=${WEATHER_API_KEY}`);
+            const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API_KEY}`);
             
-            if (!forecastResponse.ok) {
+            if (!weatherResponse.ok) {
+                if (loadingIndicator.parentNode) {
+                    loadingIndicator.parentNode.removeChild(loadingIndicator);
+                }
+                if (currentWeatherContainer) {
+                    currentWeatherContainer.style.opacity = '1';
+                }
+                
                 const errorData = await forecastResponse.json();
                 throw new Error(`${forecastResponse.status}: ${errorData.message || 'Failed to fetch forecast data'}`);
             }
             
             const forecastData = await forecastResponse.json();
             console.log('Forecast data received:', forecastData);
+            
+            // Remove loading indicator
+            if (loadingIndicator.parentNode) {
+                loadingIndicator.parentNode.removeChild(loadingIndicator);
+            }
+            if (currentWeatherContainer) {
+                currentWeatherContainer.style.opacity = '1';
+            }
+            
+            // Update current weather display
+            updateCurrentWeather(weatherData);
             
             // Display forecast
             displayForecast(forecastData);
@@ -579,47 +529,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
     }
-
-    // Simple string similarity function (0 to 1)
-    function stringSimilarity(str1, str2) {
-        if (!str1 || !str2) return 0;
-        
-        str1 = str1.toLowerCase();
-        str2 = str2.toLowerCase();
-        
-        if (str1.includes(str2)) return 0.8;
-        if (str2.includes(str1)) return 0.8;
-        
-        const set1 = new Set(str1.split(''));
-        const set2 = new Set(str2.split(''));
-        const intersection = new Set([...set1].filter(x => set2.has(x)));
-        
-        return intersection.size / Math.max(set1.size, set2.size);
-    }
-
-    // Function to handle errors in geolocation safely
-    function displayGeolocationError(error) {
-        console.error('Geolocation error:', error);
-        let message = 'Could not determine your location. Please select manually.';
-        
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                message = 'Location access was denied. Please enable location services or select manually.';
-                break;
-            case error.POSITION_UNAVAILABLE:
-                message = 'Location information is unavailable. Please select manually.';
-                break;
-            case error.TIMEOUT:
-                message = 'Location request timed out. Please try again or select manually.';
-                break;
-        }
-        
-        alert(message);
-        currentLocationBtn.innerHTML = '<span class="icon">📍</span> Use Current Location';
-        currentLocationBtn.disabled = false;
-    }
-
-    // Function to handle geolocation - FIXED
+    
+    // Function to handle geolocation
     async function handleGeolocation() {
         if (navigator.geolocation) {
             currentLocationBtn.innerHTML = '<span class="icon">⏳</span> Detecting...';
@@ -653,132 +564,144 @@ document.addEventListener('DOMContentLoaded', function() {
                     const components = data.results[0].components;
                     const state = components.state || components.state_district;
                     const district = components.county || components.state_district;
-                    const city = components.city || components.town || components.village;
+                    const city = components.city || components.town || components.village || components.suburb;
                     
                     console.log(`Detected location: ${city}, ${district}, ${state}`);
                     
-                    // Find matching state in our dropdown
-                    let foundState = false;
+                    // Directly use coordinates for weather if found
+                    if (position.coords.latitude && position.coords.longitude) {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        
+                        // Get detailed location name to display
+                        let locationName = city || district || "Current Location";
+                        
+                        if (showWeatherBtn) {
+                            showWeatherBtn.disabled = false;
+                        }
+                        
+                        try {
+                            // Direct weather fetch with coordinates
+                            const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API_KEY}`);
+                            
+                            if (!weatherResponse.ok) {
+                                throw new Error(`Weather API error: ${weatherResponse.status}`);
+                            }
+                            
+                            const weatherData = await weatherResponse.json();
+                            console.log('Weather data received for coordinates:', weatherData);
+                            
+                            // Update current weather display
+                            updateCurrentWeather(weatherData);
+                            
+                            // Fetch forecast
+                            const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API_KEY}`);
+                            
+                            if (!forecastResponse.ok) {
+                                throw new Error(`Forecast API error: ${forecastResponse.status}`);
+                            }
+                            
+                            const forecastData = await forecastResponse.json();
+                            console.log('Forecast data received for coordinates:', forecastData);
+                            
+                            // Display forecast
+                            displayForecast(forecastData);
+                            
+                            // Update UI to show location was found
+                            currentLocationBtn.innerHTML = '<span class="icon">✓</span> Location Found';
+                            setTimeout(() => {
+                                currentLocationBtn.innerHTML = '<span class="icon">📍</span> Use Current Location';
+                                currentLocationBtn.disabled = false;
+                            }, 3000);
+                            
+                            return;
+                        } catch (error) {
+                            console.error('Error fetching weather with coordinates:', error);
+                            // Fall back to dropdown selection
+                        }
+                    }
+                    
+                    // Fall back to dropdown selection - try to match state
                     let stateValue = '';
                     
-                    // First pass: try to find exact match or containing match
+                    // Match state name to dropdown options
                     for (let i = 0; i < stateSelect.options.length; i++) {
                         const option = stateSelect.options[i];
-                        const optionText = option.text.toLowerCase();
-                        const stateText = state ? state.toLowerCase() : '';
+                        const optionState = option.text.toLowerCase();
+                        const detectedState = state ? state.toLowerCase() : '';
                         
-                        if (stateText && (optionText === stateText || stateText.includes(optionText) || optionText.includes(stateText))) {
+                        // Check for matches
+                        if (
+                            detectedState === optionState || 
+                            detectedState.includes(optionState) || 
+                            optionState.includes(detectedState)
+                        ) {
                             stateSelect.value = option.value;
                             stateValue = option.value;
-                            foundState = true;
-                            console.log(`Found matching state: ${option.text}`);
                             break;
                         }
                     }
                     
-                    // Second pass: try to find best match if exact match not found
-                    if (!foundState && state) {
-                        let bestMatch = null;
-                        let bestScore = 0;
-                        
-                        for (let i = 0; i < stateSelect.options.length; i++) {
-                            const option = stateSelect.options[i];
-                            const score = stringSimilarity(state, option.text);
-                            
-                            if (score > bestScore && score > 0.3) {
-                                bestScore = score;
-                                bestMatch = option;
-                            }
-                        }
-                        
-                        if (bestMatch) {
-                            stateSelect.value = bestMatch.value;
-                            stateValue = bestMatch.value;
-                            foundState = true;
-                            console.log(`Found best matching state: ${bestMatch.text} (score: ${bestScore})`);
-                        }
-                    }
-                    
-                    if (foundState) {
+                    if (stateValue) {
                         // Trigger change event to populate districts
-                        const event = new Event('change');
-                        stateSelect.dispatchEvent(event);
+                        stateSelect.dispatchEvent(new Event('change'));
                         
-                        // Try to find district and city
+                        // Try to select district
                         setTimeout(() => {
-                            if (districtSelect.options.length <= 1) {
-                                console.warn('No districts loaded for state');
-                                return;
-                            }
-                            
-                            // Find best matching district
-                            let bestDistrictMatch = null;
-                            let bestScore = 0;
-                            
-                            for (let i = 1; i < districtSelect.options.length; i++) {
-                                const option = districtSelect.options[i];
-                                const score = stringSimilarity(district || '', option.text);
-                                
-                                if (score > bestScore) {
-                                    bestScore = score;
-                                    bestDistrictMatch = option;
-                                }
-                            }
-                            
-                            if (bestDistrictMatch && bestScore > 0.3) {
-                                console.log(`Selected district: ${bestDistrictMatch.text} (score: ${bestScore})`);
-                                districtSelect.value = bestDistrictMatch.value;
-                                const districtEvent = new Event('change');
-                                districtSelect.dispatchEvent(districtEvent);
-                                
-                                // Find best matching city
-                                setTimeout(() => {
-                                    if (citySelect.options.length <= 1) {
-                                        console.warn('No cities loaded for district');
-                                        return;
+                            if (districtSelect.options.length > 1) {
+                                for (let i = 1; i < districtSelect.options.length; i++) {
+                                    const option = districtSelect.options[i];
+                                    const optionDistrict = option.text.toLowerCase();
+                                    const detectedDistrict = district ? district.toLowerCase() : '';
+                                    
+                                    if (
+                                        detectedDistrict === optionDistrict || 
+                                        detectedDistrict.includes(optionDistrict) || 
+                                        optionDistrict.includes(detectedDistrict)
+                                    ) {
+                                        districtSelect.value = option.value;
+                                        break;
                                     }
-                                    
-                                    let bestCityMatch = null;
-                                    let bestCityScore = 0;
-                                    
-                                    for (let i = 1; i < citySelect.options.length; i++) {
-                                        const option = citySelect.options[i];
-                                        const score = stringSimilarity(city || '', option.text);
+                                }
+                                
+                                districtSelect.dispatchEvent(new Event('change'));
+                                
+                                // Try to select city
+                                setTimeout(() => {
+                                    if (citySelect.options.length > 1) {
+                                        for (let i = 1; i < citySelect.options.length; i++) {
+                                            const option = citySelect.options[i];
+                                            const optionCity = option.text.toLowerCase();
+                                            const detectedCity = city ? city.toLowerCase() : '';
+                                            
+                                            if (
+                                                detectedCity === optionCity || 
+                                                detectedCity.includes(optionCity) || 
+                                                optionCity.includes(detectedCity)
+                                            ) {
+                                                citySelect.value = option.value;
+                                                break;
+                                            }
+                                        }
                                         
-                                        if (score > bestCityScore) {
-                                            bestCityScore = score;
-                                            bestCityMatch = option;
+                                        if (citySelect.value && showWeatherBtn) {
+                                            showWeatherBtn.disabled = false;
+                                            showWeatherBtn.click(); // Auto-fetch weather
                                         }
                                     }
-                                    
-                                    if (bestCityMatch && bestCityScore > 0.3) {
-                                        console.log(`Selected city: ${bestCityMatch.text} (score: ${bestCityScore})`);
-                                        citySelect.value = bestCityMatch.value;
-                                        showWeatherBtn.disabled = false;
-                                        
-                                        // Automatically fetch weather
-                                        showWeatherBtn.click();
-                                    } else {
-                                        console.warn('No matching city found:', city);
-                                        alert('Please select a city from the dropdown');
-                                    }
-                                }, 300);
-                            } else {
-                                console.warn('No matching district found:', district);
-                                alert('Please select a district from the dropdown');
+                                }, 200);
                             }
-                        }, 300);
-                    } else {
-                        console.warn('No matching state found:', state);
-                        alert('Could not determine your state. Please select manually.');
+                        }, 200);
                     }
+                    
+                    currentLocationBtn.innerHTML = '<span class="icon">📍</span> Use Current Location';
+                    currentLocationBtn.disabled = false;
                 } else {
-                    console.error('No location data in geocoding response');
-                    throw new Error('Location data not available');
+                    throw new Error('Could not determine your location');
                 }
             } catch (error) {
-                displayGeolocationError(error);
-            } finally {
+                console.error('Geolocation error:', error);
+                alert('Unable to determine your location. Please select manually.');
                 currentLocationBtn.innerHTML = '<span class="icon">📍</span> Use Current Location';
                 currentLocationBtn.disabled = false;
             }
@@ -786,7 +709,27 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Geolocation is not supported by your browser');
         }
     }
-
+    
+    // Populate the state dropdown when page loads
+    window.addEventListener('DOMContentLoaded', function() {
+        // Ensure state select is populated
+        if (stateSelect) {
+            stateSelect.innerHTML = '<option value="">Select State</option>';
+            Object.keys(locationData).forEach(stateKey => {
+                const option = document.createElement('option');
+                option.value = stateKey;
+                
+                // Convert key to proper state name (e.g., 'andhra-pradesh' to 'Andhra Pradesh')
+                const stateName = stateKey.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+                
+                option.textContent = stateName;
+                stateSelect.appendChild(option);
+            });
+        }
+    });
+    
     // Populate districts when state changes
     stateSelect.addEventListener('change', function() {
         if (this.value) {
@@ -851,14 +794,14 @@ document.addEventListener('DOMContentLoaded', function() {
         showWeatherBtn.disabled = !this.value;
     });
     
-    // Current location button - FIXED
+    // Current location button
     if (currentLocationBtn) {
         currentLocationBtn.addEventListener('click', handleGeolocation);
     } else {
         console.error('Current location button not found');
     }
     
-    // Show weather button - FIXED
+    // Show weather button
     if (showWeatherBtn) {
         showWeatherBtn.addEventListener('click', async function() {
             if (!citySelect.value || !stateSelect.value) {
@@ -870,7 +813,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const state = stateSelect.options[stateSelect.selectedIndex].text;
             
             const originalText = this.innerHTML;
-            this.innerHTML = 'Loading...';
+            this.innerHTML = '<span class="icon">⏳</span> Loading...';
             this.disabled = true;
             
             console.log(`Fetching weather for ${city}, ${state}`);
@@ -886,20 +829,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('Show weather button not found');
     }
-    
-    // Debug check for crop tabs
-    console.log('Tab Buttons:', tabButtons.length);
-    console.log('Crop Categories:', cropCategories.length);
-    
-    // Ensure tab buttons have correct data-category attributes
-    tabButtons.forEach(button => {
-        const category = button.getAttribute('data-category');
-        console.log(`Tab Button '${button.textContent}' links to category: ${category}`);
-        const categoryElement = document.getElementById(category);
-        if (!categoryElement) {
-            console.error(`Category element with ID '${category}' not found`);
-        }
-    });
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1577,42 +1506,77 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
       
         // Logout Functionality
-        document.querySelector('#logout button').addEventListener('click', function() {
-          // Create confirmation dialog
-          const confirmDialog = document.createElement('div');
-          confirmDialog.className = 'tech-modal';
-          confirmDialog.style.display = 'flex';
-          confirmDialog.innerHTML = `
-            <div class="tech-modal-content" style="text-align: center; max-width: 400px;">
-              <h3 style="color: #ff5e62;">Logout Confirmation</h3>
-              <p>Are you sure you want to logout?</p>
-              <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
-                <button id="confirm-logout" style="background: linear-gradient(135deg, #ff5e62 0%, #ff9966 100%); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">Yes, Logout</button>
-                <button id="cancel-logout" style="background: #f1f1f1; color: #333; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">Cancel</button>
-              </div>
-            </div>
-          `;
-          document.body.appendChild(confirmDialog);
-      
-          // Handle logout confirmation
-          document.getElementById('confirm-logout').addEventListener('click', function() {
-            alert('You have been logged out successfully!');
-            // In a real app, you would redirect to login page:
-            // window.location.href = '/login';
-            confirmDialog.style.display = 'none';
-          });
-      
-          // Handle cancel
-          document.getElementById('cancel-logout').addEventListener('click', function() {
-            confirmDialog.style.display = 'none';
-          });
-      
-          // Close when clicking outside
-          confirmDialog.addEventListener('click', function(e) {
-            if (e.target === confirmDialog) {
-              confirmDialog.style.display = 'none';
-            }
-          });
+        document.querySelector('#logoutButton').addEventListener('click', function() {
+            // Create confirmation dialog
+            const confirmDialog = document.createElement('div');
+            confirmDialog.className = 'confirm-dialog';
+            confirmDialog.innerHTML = `
+                <div class="confirm-dialog-content">
+                    <h3>Confirm Logout</h3>
+                    <p>Are you sure you want to log out?</p>
+                    <div class="confirm-dialog-buttons">
+                        <button id="confirmLogout" class="confirm-btn">Yes, Logout</button>
+                        <button id="cancelLogout" class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmDialog);
+            
+            // Handle confirmation
+            document.getElementById('confirmLogout').addEventListener('click', function() {
+                // Try to use the global logout function from script.js
+                if (typeof logoutUser === 'function') {
+                    // Call the global logout function
+                    logoutUser();
+                } else {
+                    // Fallback logout function for dashboard.js
+                    fallbackLogout();
+                }
+                
+                // Remove confirmation dialog
+                document.body.removeChild(confirmDialog);
+            });
+            
+            // Handle cancellation
+            document.getElementById('cancelLogout').addEventListener('click', function() {
+                document.body.removeChild(confirmDialog);
+            });
         });
-      });
+    });
 
+
+// Function to log out the user
+function logoutUser() {
+    // Clear all user authentication data
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('authProvider');
+    localStorage.removeItem('userData');
+    localStorage.removeItem('userToken');
+    
+    // Alert user of successful logout
+    alert('You have been logged out successfully!');
+    
+    // Perform a simple and direct redirect to index.html
+    setTimeout(function() {
+        window.location.href = 'index.html';
+    }, 100);
+}
+
+// Fallback logout function for dashboard.js
+function fallbackLogout() {
+    // Clear all user authentication data
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('authProvider');
+    localStorage.removeItem('userData');
+    localStorage.removeItem('userToken');
+    
+    // Alert user of successful logout
+    alert('You have been logged out successfully!');
+    
+    // Perform a simple and direct redirect to index.html
+    setTimeout(function() {
+        window.location.href = 'index.html';
+    }, 100);
+}
