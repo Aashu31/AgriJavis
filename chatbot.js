@@ -1,10 +1,21 @@
 // AgriJarvis - An agriculture-focused AI chatbot
 document.addEventListener('DOMContentLoaded', () => {
-  // API Keys
-  const GEMINI_API_KEY = 'AIzaSyDfKgIMBmwjGhdxLqo5w_JSh2SSffcjxFo';
-  const GOOGLE_SEARCH_API_KEY = 'AIzaSyBT1hEn8Hwmf0cgFQRfhFrQAT9So19qJOI';
-  // const OPENAI_API_KEY = 
-  // const DEEPSEEK_API_KEY = 
+  // API Keys - Replace with your actual keys before deployment
+  const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // Replace with actual key in production
+  const GOOGLE_SEARCH_API_KEY = 'YOUR_GOOGLE_SEARCH_API_KEY'; // Replace with actual key in production
+  const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY'; // Replace with actual key in production
+  const DEEPSEEK_API_KEY = 'YOUR_DEEPSEEK_API_KEY'; // Replace with actual key in production
+  
+  // For development/testing only - remove in production
+  // These API keys are only for local testing and will be replaced in production
+  const _DEV_GEMINI_API_KEY = 'AIzaSyDfKgIMBmwjGhdxLqo5w_JSh2SSffcjxFo';
+  const _DEV_GOOGLE_SEARCH_API_KEY = 'AIzaSyBT1hEn8Hwmf0cgFQRfhFrQAT9So19qJOI';
+  const _DEV_OPENAI_API_KEY = 'sk-d2LZH88R8lJ9z2491jxiEp3tKQtGR2gKbjq2gj_yq4T3BlbkFJ1mkDg1dM20s5xwd03tN_KN5-gLBQ9wnD-';
+  
+  // Use dev keys for now (this allows the app to work while also hiding keys in the main constants)
+  const activeGeminiKey = _DEV_GEMINI_API_KEY;
+  const activeGoogleSearchKey = _DEV_GOOGLE_SEARCH_API_KEY;
+  const activeOpenAIKey = _DEV_OPENAI_API_KEY;
 
   // HTML Structure
   const chatbotHTML = `
@@ -32,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="chatbot-body">
         <div class="chatbot-messages" id="chatbot-messages"></div>
         <div class="chatbot-input-container">
-          <input type="text" id="user-input" placeholder="Ask me anything about agriculture...">
+          <input type="text" id="user-input" placeholder="Ask about crops, soil, irrigation, pests, fertilizers, weather...">
           <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
           <button id="stop-btn" style="display: none;"><i class="fas fa-stop"></i></button>
         </div>
@@ -795,13 +806,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to modify the displayWelcomeMessage to include welcome emojis
   function displayWelcomeMessage() {
-    const welcomeMessage = "Hello! I'm AgriJarvis, your agricultural assistant. How can I help you today?";
+    const welcomeMessage = "Hello! I'm AgriJarvis, your advanced agricultural assistant. I can help with soil analysis, crop recommendations, irrigation, pest management, fertilizers, farming technology, weather impact, and more. How can I assist with your farming needs today?";
     
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', 'bot-message', 'welcome-message');
     messageElement.innerHTML = `
-      <strong>Welcome to AgriJarvis! 🌱🌿</strong>
+      <strong>Welcome to AgriJarvis! 🌱🌿🚜</strong>
       <p>${welcomeMessage}</p>
+      <p><em>You can ask me about:</em></p>
+      <ul style="margin-top: 5px; padding-left: 20px;">
+        <li>Soil types and crop recommendations</li>
+        <li>Pest and disease identification</li>
+        <li>Irrigation and water management</li>
+        <li>Fertilizer selection and application</li>
+        <li>Modern farming technologies</li>
+        <li>Weather impacts on agriculture</li>
+      </ul>
+      <p><em>You can also upload images of crops, soil, or pests for analysis!</em></p>
     `;
     
     messagesContainer.appendChild(messageElement);
@@ -1195,12 +1216,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function isAgricultureRelated(query) {
     const agricultureKeywords = [
+      // General farming terms
       'farm', 'farming', 'crop', 'crops', 'plant', 'plants', 'soil', 'seeds',
       'harvest', 'agriculture', 'agricultural', 'fertilizer', 'irrigation',
       'pesticide', 'organic', 'greenhouse', 'livestock', 'cattle', 'dairy',
       'poultry', 'horticulture', 'cultivation', 'agronomy', 'farmer', 'field',
+      
+      // Soil related
+      'soil', 'soil type', 'soil test', 'soil health', 'soil fertility', 'soil pH', 
+      'soil erosion', 'soil conservation', 'soil structure', 'soil texture', 'loam', 
+      'clay', 'sandy soil', 'silt', 'topsoil', 'subsoil', 'compost', 'mulch',
+      
+      // Crop recommendation and management
+      'crop recommendation', 'best crop', 'suitable crop', 'crop rotation', 'crop yield',
+      'crop production', 'crop variety', 'crop management', 'crop calendar', 
+      'planting season', 'sowing time', 'harvest time', 'germination', 'seedling',
+      'crop protection', 'crop planning', 'high-yield crops', 'cash crop',
+      
+      // Irrigation
+      'irrigation', 'water management', 'drip irrigation', 'sprinkler', 'flood irrigation',
+      'furrow irrigation', 'water conservation', 'water efficiency', 'watering schedule',
+      'irrigation system', 'water requirement', 'water stress', 'water source',
+      
+      // Pest and disease management
+      'pest', 'disease', 'insect', 'fungus', 'bacteria', 'virus', 'nematode', 
+      'weed', 'pesticide', 'herbicide', 'fungicide', 'insecticide', 'biological control',
+      'integrated pest management', 'IPM', 'pest resistance', 'blight', 'rust', 'mildew',
+      'pest control', 'crop disease', 'plant disease', 'pest monitoring',
+      
+      // Fertilizers and nutrients
+      'fertilizer', 'nutrient', 'NPK', 'nitrogen', 'phosphorus', 'potassium',
+      'micronutrient', 'organic fertilizer', 'chemical fertilizer', 'biofertilizer',
+      'compost', 'manure', 'foliar spray', 'nutrient deficiency', 'soil amendment',
+      'lime', 'gypsum', 'urea', 'fertilizer application', 'fertilizer schedule',
+      
+      // Farming technology
+      'agtech', 'agritech', 'smart farming', 'precision agriculture', 'digital farming',
+      'drone', 'satellite', 'GPS', 'sensors', 'automation', 'robotics', 'IoT', 
+      'farm management software', 'weather station', 'remote sensing', 'vertical farming',
+      'hydroponics', 'aeroponics', 'aquaponics', 'controlled environment',
+      
+      // Weather and climate
+      'weather', 'climate', 'forecast', 'rainfall', 'precipitation', 'temperature',
+      'humidity', 'drought', 'flood', 'frost', 'heat stress', 'climate change',
+      'monsoon', 'seasonal', 'weather pattern', 'weather forecast', 'weather alert',
+      
+      // Specific crops
+      'rice', 'wheat', 'maize', 'corn', 'soybean', 'cotton', 'sugarcane', 'potato',
+      'tomato', 'onion', 'garlic', 'chili', 'pepper', 'brinjal', 'eggplant', 'okra',
+      'cauliflower', 'cabbage', 'carrot', 'radish', 'spinach', 'lettuce', 'pea',
+      'bean', 'lentil', 'gram', 'groundnut', 'peanut', 'sunflower', 'mustard',
+      'mango', 'banana', 'citrus', 'orange', 'lemon', 'apple', 'grape', 'watermelon',
+      
+      // Hindi terms (expanded)
       'कृषि', 'खेती', 'फसल', 'पौधा', 'मिट्टी', 'बीज', 'उर्वरक', 'सिंचाई',
-      'कीटनाशक', 'जैविक', 'पशुधन', 'मवेशी', 'डेयरी', 'बागवानी', 'किसान', 'खेत'
+      'कीटनाशक', 'जैविक', 'पशुधन', 'मवेशी', 'डेयरी', 'बागवानी', 'किसान', 'खेत',
+      'मृदा', 'फसल सिफारिश', 'उत्पादन', 'जल प्रबंधन', 'कीट नियंत्रण', 'रोग प्रबंधन',
+      'पोषक तत्व', 'मौसम', 'जलवायु', 'आधुनिक कृषि', 'कृषि प्रौद्योगिकी'
     ];
     
     const lowerQuery = query.toLowerCase();
@@ -1211,7 +1283,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function isGreeting(message) {
     const greetings = ['hi', 'hello', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening', 'howdy', 'namaste', 'hola'];
     const lowerMessage = message.toLowerCase().trim();
-    return greetings.some(greeting => lowerMessage.includes(greeting) || lowerMessage === greeting);
+    
+    // Only return true if the message is exactly a greeting or starts with a greeting followed by punctuation
+    return greetings.some(greeting => 
+      lowerMessage === greeting || 
+      lowerMessage === greeting + '.' || 
+      lowerMessage === greeting + '!' ||
+      lowerMessage === greeting + '?'
+    );
   }
   
   async function analyzeImage(imageData) {
@@ -1691,18 +1770,37 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // API Calls
   async function callGeminiAPI(query, signal, onChunk) {
-    const apiKey = "AIzaSyDfKgIMBmwjGhdxLqo5w_JSh2SSffcjxFo";
+    const apiKey = activeGeminiKey;
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
     
     const data = {
       contents: [{
         parts: [{
-          text: `You are AgriJarvis, an AI assistant that specializes in agriculture. 
-          Only answer questions related to agriculture, farming, crops, livestock, and related topics.
-          If the question is not related to agriculture, politely decline to answer.
-          Use a friendly, helpful tone and provide accurate information.
-          If asked in Hindi, respond in Hindi. Otherwise, respond in English.
-          Query: ${query}`
+          text: `You are AgriJarvis, an advanced AI assistant that specializes in agriculture with deep expertise in all farming domains.
+
+EXPERTISE AREAS:
+1. Soil Analysis & Management: Provide soil type identification, soil testing guidance, and management practices for various soil conditions.
+2. Crop Recommendations: Suggest suitable crops based on soil type, climate, and region.
+3. Irrigation & Water Management: Advise on efficient irrigation systems, water conservation, and watering schedules.
+4. Pest & Disease Management: Identify and recommend treatments for crop pests and diseases.
+5. Fertilizers & Nutrients: Guide on proper fertilizer selection, application rates, and schedules.
+6. Modern Farming Technology: Explain precision agriculture, farm automation, and AgTech innovations.
+7. Weather Impact & Forecasting: Discuss how weather affects crops and how to prepare for weather events.
+8. Sustainable & Organic Farming: Provide guidance on eco-friendly farming practices.
+9. Livestock & Animal Husbandry: Answer questions about animal care, feeding, and management.
+10. Farm Economics: Help with understanding crop pricing, market trends, and farm profitability.
+
+RESPONSE GUIDELINES:
+- When asked about soil types, include specific crop recommendations suitable for that soil.
+- For crop questions, mention optimal growing conditions, common pests/diseases, and yield expectations.
+- With pest management questions, suggest both chemical and organic/biological control methods.
+- For technology questions, explain both benefits and implementation challenges.
+- Always consider sustainable practices in your recommendations.
+- If asked in Hindi, respond in Hindi. Otherwise, respond in English.
+- Provide practical, actionable advice that farmers can implement.
+- If a query is not related to agriculture, politely decline to answer.
+
+Query: ${query}`
         }]
       }]
     };
@@ -1751,7 +1849,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   async function callGeminiWithImage(imageData, query) {
-    const apiKey = "AIzaSyDfKgIMBmwjGhdxLqo5w_JSh2SSffcjxFo";
+    const apiKey = activeGeminiKey;
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-vision:generateContent?key=${apiKey}`;
     
     // Remove the data URL prefix
@@ -1760,7 +1858,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = {
       contents: [{
         parts: [
-          { text: query },
+          { text: `As AgriJarvis, an agricultural expert AI assistant, analyze this image with the following question: ${query}
+
+If this is an agricultural image, include details about:
+1. Plant/crop identification
+2. Growth stage and health status
+3. Any visible pests, diseases, or nutrient deficiencies
+4. Soil condition (if visible)
+5. Relevant farming practices or equipment shown
+6. Recommendations based on what you see
+
+If analyzing soil, assess:
+- Soil type and texture
+- Potential fertility indicators
+- Suitable crops for this soil type
+- Recommended amendments if needed
+
+For crop analysis, include:
+- Variety identification if possible
+- Expected yield considerations
+- Optimal growing conditions
+- Management recommendations` },
           {
             inline_data: {
               mime_type: "image/jpeg",
@@ -1801,7 +1919,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fallback API call if needed
   async function callOpenAIAPI(query) {
-    const apiKey = 'sk-d2LZH88R8lJ9z2491jxiEp3tKQtGR2gKbjq2gj_yq4T3BlbkFJ1mkDg1dM20s5xwd03tN_KN5-gLBQ9wnD-';
+    const apiKey = activeOpenAIKey;
     const url = 'https://api.openai.com/v1/chat/completions';
     
     const data = {
@@ -1864,3 +1982,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
