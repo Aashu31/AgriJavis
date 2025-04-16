@@ -1527,7 +1527,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Handle greetings
     if (isGreeting(message)) {
-      let greetingResponse = `Hello there! I'm AgriJarvis, your agriculture assistant. How can I help you with your farming questions today?`;
+      let greetingResponse = `Hello Sir! I'm AgriJarvis, your agriculture assistant. How can I help you with your farming questions today?`;
       displayBotMessage(greetingResponse);
       
       // Store and speak response
@@ -1557,7 +1557,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Check if query is agriculture-related
     if (!isAgricultureRelated(message) && !message.toLowerCase().includes('agrijarvis')) {
-      let notAgriResponse = "I'm sorry, I'm designed to help with agriculture-related queries only. Please ask me about farming, crops, soil, or any other agricultural topic.";
+      let notAgriResponse = "I'm sorry, I'm designed to help with agriculture-related queries only.";
       displayBotMessage(notAgriResponse);
       
       // Store and speak response
