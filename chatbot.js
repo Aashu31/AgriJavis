@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // API Keys
   const GEMINI_API_KEY = 'AIzaSyDfKgIMBmwjGhdxLqo5w_JSh2SSffcjxFo';
   const GOOGLE_SEARCH_API_KEY = 'AIzaSyBT1hEn8Hwmf0cgFQRfhFrQAT9So19qJOI';
-  const OPENAI_API_KEY = 'sk-d2LZH88R8lJ9z2491jxiEp3tKQtGR2gKbjq2gj_yq4T3BlbkFJ1mkDg1dM20s5xwd03tN_KN5-gLBQ9wnD-';
-  const DEEPSEEK_API_KEY = 'sk-b5c3619dc472465fbb7b5587a66458e';
+  // const OPENAI_API_KEY = 
+  // const DEEPSEEK_API_KEY = 
 
   // HTML Structure
   const chatbotHTML = `
     <div class="chatbot-toggle-btn">
-      <img src= alt="AgriJarvis" class="chatbot-logo">
+      <img src="AgriJarvis (2).png" alt="AgriJarvis" class="chatbot-logo">
     </div>
     <div class="chatbot-container">
       <div class="chatbot-header">
